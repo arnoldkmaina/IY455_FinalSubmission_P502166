@@ -58,6 +58,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="borrower table and loan table added" />
     <MESSAGE value="inserted borrowers, loans &amp; rental categories" />
+    <MESSAGE value="borrower, loan, rental category added" />
     <MESSAGE value="rental, copy, loan-item &amp; DVD table added" />
     <option name="LAST_COMMIT_MESSAGE" value="rental, copy, loan-item &amp; DVD table added" />
   </component>
