@@ -429,3 +429,32 @@ WHERE rental_category_id IN (
 SELECT rental_category_id, rental_category_name, rental_cost
 FROM RentalCategory3NF
 WHERE rental_category_name = 'Superhero';
+
+
+SELECT d.dvd_no, d.dvd_title, d.dvd_year
+FROM DVDInfo3NF d
+WHERE d.dvd_no NOT IN (
+    SELECT DISTINCT dc.dvd_no
+    FROM DVDCopy3NF  dc
+    JOIN LoanItem3NF li ON dc.copy_no = li.copy_no
+);
+
+DELETE FROM DVDCopy3NF
+WHERE dvd_no NOT IN (
+    SELECT dvd_no FROM (
+        SELECT DISTINCT dc2.dvd_no
+        FROM DVDCopy3NF  dc2
+        JOIN LoanItem3NF li ON dc2.copy_no = li.copy_no
+    ) AS loaned_copies
+);
+
+DELETE FROM DVDInfo3NF
+WHERE dvd_no NOT IN (
+    SELECT dvd_no FROM (
+        SELECT DISTINCT dc.dvd_no
+        FROM DVDCopy3NF  dc
+        JOIN LoanItem3NF li ON dc.copy_no = li.copy_no
+    ) AS loaned_dvds
+);
+
+SELECT dvd_no, dvd_title FROM DVDInfo3NF ORDER BY dvd_no;
