@@ -377,3 +377,22 @@ WHERE li.actual_return_date > li.return_due_date
 GROUP BY b.borrower_no, b.borrower_name, b.borrower_address, b.borrower_status
 HAVING SUM(li.loan_fine_charge) > 0
 ORDER BY total_overdue_fines DESC;
+
+SELECT
+    b.borrower_no,
+    b.borrower_name,
+    b.borrower_address,
+    b.borrower_status,
+    d.dvd_title,
+    d.dvd_starring_actor,
+    d.dvd_year,
+    lo.loan_date
+FROM BorrowerInfo3NF   b
+JOIN LoanInfo3NF       lo ON b.borrower_no       = lo.borrower_no
+JOIN LoanItem3NF       li ON lo.loan_no           = li.loan_no
+JOIN DVDCopy3NF        dc ON li.copy_no           = dc.copy_no
+JOIN DVDInfo3NF        d  ON dc.dvd_no            = d.dvd_no
+JOIN RentalCategory3NF rc ON d.rental_category_id = rc.rental_category_id
+WHERE rc.rental_category_name = 'Comedy'
+AND lo.loan_date >= DATE_SUB(CURDATE(), INTERVAL 28 DAY)
+ORDER BY b.borrower_name;
