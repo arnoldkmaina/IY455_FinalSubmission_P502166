@@ -396,3 +396,15 @@ JOIN RentalCategory3NF rc ON d.rental_category_id = rc.rental_category_id
 WHERE rc.rental_category_name = 'Comedy'
 AND lo.loan_date >= DATE_SUB(CURDATE(), INTERVAL 28 DAY)
 ORDER BY b.borrower_name;
+
+SELECT
+    b.borrower_no,
+    b.borrower_name,
+    b.borrower_address,
+    b.borrower_status,
+    SUM(li.loan_fine_charge) AS borrower_total_fine
+FROM BorrowerInfo3NF b
+JOIN LoanInfo3NF  lo ON b.borrower_no = lo.borrower_no
+JOIN LoanItem3NF  li ON lo.loan_no    = li.loan_no
+GROUP BY b.borrower_no, b.borrower_name, b.borrower_address, b.borrower_status
+ORDER BY borrower_total_fine DESC
