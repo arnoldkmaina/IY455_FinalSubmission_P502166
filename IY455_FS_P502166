@@ -408,3 +408,24 @@ JOIN LoanInfo3NF  lo ON b.borrower_no = lo.borrower_no
 JOIN LoanItem3NF  li ON lo.loan_no    = li.loan_no
 GROUP BY b.borrower_no, b.borrower_name, b.borrower_address, b.borrower_status
 ORDER BY borrower_total_fine DESC
+
+SELECT rc.rental_category_id, rc.rental_category_name, rc.rental_cost,
+       d.dvd_title, d.dvd_year
+FROM RentalCategory3NF rc
+JOIN DVDInfo3NF d ON d.rental_category_id = rc.rental_category_id
+WHERE rc.rental_category_name = 'Superhero'
+  AND d.dvd_year >= 2015;
+
+UPDATE RentalCategory3NF
+SET rental_cost = 5.50
+WHERE rental_category_id IN (
+    SELECT DISTINCT d.rental_category_id
+    FROM DVDInfo3NF d
+    JOIN RentalCategory3NF rc ON d.rental_category_id = rc.rental_category_id
+    WHERE rc.rental_category_name = 'Superhero'
+      AND d.dvd_year >= 2015
+);
+
+SELECT rental_category_id, rental_category_name, rental_cost
+FROM RentalCategory3NF
+WHERE rental_category_name = 'Superhero';
