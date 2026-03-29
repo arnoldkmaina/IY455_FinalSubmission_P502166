@@ -13,6 +13,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "arnoldkmaina"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/arnoldkmaina/IY455_FinalSubmission_P502166",
+    "accountId": "27203db9-c0f8-4fd9-ac0f-ef6134bb805d"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -63,6 +75,7 @@
     <MESSAGE value="borrower, loan, rental category added" />
     <MESSAGE value="rental, copy, loan-item &amp; DVD table added" />
     <MESSAGE value="Updated NF Tables" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated NF Tables" />
+    <MESSAGE value="first query: Output all borrowers who have current rentals, ordered by surname" />
+    <option name="LAST_COMMIT_MESSAGE" value="first query: Output all borrowers who have current rentals, ordered by surname" />
   </component>
 </project>
