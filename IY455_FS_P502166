@@ -363,3 +363,17 @@ JOIN LoanInfo3NF  lo ON b.borrower_no = lo.borrower_no
 JOIN LoanItem3NF  li ON lo.loan_no    = li.loan_no
 WHERE li.actual_return_date IS NULL
 ORDER BY SUBSTRING_INDEX(b.borrower_name, ' ', -1);
+
+SELECT
+    b.borrower_no,
+    b.borrower_name,
+    b.borrower_address,
+    b.borrower_status,
+    SUM(li.loan_fine_charge) AS total_overdue_fines
+FROM BorrowerInfo3NF b
+JOIN LoanInfo3NF  lo ON b.borrower_no = lo.borrower_no
+JOIN LoanItem3NF  li ON lo.loan_no    = li.loan_no
+WHERE li.actual_return_date > li.return_due_date
+GROUP BY b.borrower_no, b.borrower_name, b.borrower_address, b.borrower_status
+HAVING SUM(li.loan_fine_charge) > 0
+ORDER BY total_overdue_fines DESC;
